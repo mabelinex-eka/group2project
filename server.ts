@@ -7,6 +7,7 @@ import handleFeed from './api/feed.js';
 import handleBus from './api/bus.js';
 import handleCarparkAvailability from './api/carparkavailability.ts';
 import handleHealth from './api/health.ts';
+import handleCarparkRates from './api/carparkrates.ts';
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ const PORT = parseInt(process.env.PORT || '3000', 10);
 app.use(express.json());
 
 // Register API routes
+app.get('/api/carparkrates', handleCarparkRates);
+app.get('/carparkrates', handleCarparkRates);
 app.get('/api/carparkavailability', handleCarparkAvailability);
 app.get('/carparkavailability', handleCarparkAvailability);
 app.get('/api/health', handleHealth);
