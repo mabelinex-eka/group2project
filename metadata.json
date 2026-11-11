@@ -1,0 +1,6 @@
+{
+  "name": "SMU Commute & Carpark Decision Engine",
+  "description": "Real-time decision tool comparing bus vs. driving to SMU, featuring live LTA carpark availability, dynamic parking rates today, and smart carpark recommendations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
