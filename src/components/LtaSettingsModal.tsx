@@ -28,11 +28,11 @@ export const LtaSettingsModal: React.FC<LtaSettingsModalProps> = ({
   const handleTestAndSave = async () => {
     setTestingStatus('testing');
     try {
-      const res = await fetch('/api/feed', {
-        headers: keyInput ? { 'x-lta-api-key': keyInput } : {},
+      const res = await fetch('/api/carparkavailability', {
+        headers: keyInput ? { AccountKey: keyInput, 'x-lta-api-key': keyInput } : {},
       });
       const data = await res.json();
-      if (data && data.carparks) {
+      if (data && (data.smuCarparks || data.carparks)) {
         setTestingStatus(data.isLiveLTA ? 'success' : 'idle');
         onSaveApiKey(keyInput);
       } else {

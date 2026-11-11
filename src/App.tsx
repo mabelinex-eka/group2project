@@ -74,16 +74,17 @@ export default function App() {
         headers['x-lta-api-key'] = preferences.ltaApiKey;
       }
 
-      const res = await fetch('/api/feed', { headers });
+      const res = await fetch('/api/carparkavailability', { headers });
       if (res.ok) {
         const data = await res.json();
         setIsLiveLTA(Boolean(data.isLiveLTA));
         setSgtTimeString(data.sgtFormattedTime || '');
 
-        if (Array.isArray(data.carparks)) {
+        const lotData = data.smuCarparks || data.carparks;
+        if (Array.isArray(lotData)) {
           setLiveCarparks((prev) =>
             prev.map((cp) => {
-              const match = data.carparks.find((d: { id: string }) => d.id === cp.id);
+              const match = lotData.find((d: { id: string }) => d.id === cp.id);
               if (match) {
                 return {
                   ...cp,

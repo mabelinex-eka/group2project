@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 // Import root api endpoints
 import handleFeed from './api/feed.js';
 import handleBus from './api/bus.js';
+import handleCarparkAvailability from './api/carparkavailability.ts';
+import handleHealth from './api/health.ts';
 
 dotenv.config();
 
@@ -17,6 +19,12 @@ const PORT = parseInt(process.env.PORT || '3000', 10);
 app.use(express.json());
 
 // Register API routes
+app.get('/api/carparkavailability', handleCarparkAvailability);
+app.get('/carparkavailability', handleCarparkAvailability);
+app.get('/api/health', handleHealth);
+app.get('/health', handleHealth);
+
+// Existing endpoints
 app.get('/api/feed', handleFeed);
 app.get('/api/bus', handleBus);
 app.get('/api/carparks', handleFeed);
@@ -27,7 +35,11 @@ app.get('/api/status', (_req: Request, res: Response) => {
   res.json({
     status: 'ok',
     serverTimeSGT: sgtNow.toLocaleString('en-SG', { timeZone: 'Asia/Singapore' }),
-    hasLtaKey: Boolean(process.env.LTA_DATAMALL_KEY),
+    hasLtaKey: Boolean(
+      process.env.LTA_DATAMALL_KEY ||
+      process.env.LTA_ACCOUNT_KEY ||
+      process.env.ACCOUNT_KEY
+    ),
     hasGeminiKey: Boolean(process.env.GEMINI_API_KEY),
     version: '1.0.0',
   });
